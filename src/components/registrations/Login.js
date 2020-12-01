@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import "../../styles/tailwind.css";
 
 import logo from "../../assets/logo_transparent3.png";
 import LoginPartial from "../partials/LoginPartial";
@@ -11,6 +10,7 @@ const Login = (props) => {
   const close = () => {
     setShow(!show);
   };
+
   return (
     <div className="flex">
       <div className="flex flex-col items-center w-1/2 h-screen">
@@ -25,7 +25,10 @@ const Login = (props) => {
       </div>
       <div className="flex flex-col logo-color w-1/2 h-screen space-y-56 items-center">
         <div className="flex">
-          <LoginPartial handleLogin={props.handleLogin} />
+          <LoginPartial
+            history={props.history}
+            handleLogin={props.handleLogin}
+          />
         </div>
         <div className="flex flex-col space-y-10">
           <div className="text-white text-2xl font-bold">
@@ -39,7 +42,12 @@ const Login = (props) => {
             >
               Sign up
             </button>
-            <Signup show={show} close={close} />
+            <Signup
+              handleLogin={props.handleLogin}
+              history={props.history}
+              show={show}
+              close={close}
+            />
           </div>
         </div>
       </div>

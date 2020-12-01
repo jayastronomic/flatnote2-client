@@ -5,3 +5,33 @@
 .logo-color {
   background-color: rgb(25, 114, 164);
 }
+
+.nav-link {
+  color: rgb(25, 114, 164);
+}
+
+.nav-link:hover {
+  background-color: rgb(25, 114, 164);
+}
+
+.fa-bars {
+  color: rgb(25, 114, 164);
+}
+
+.menu-icon {
+  display: none;
+}
+
+.nav-menu {
+  display: grid;
+  grid-template-columns: repeat(5, auto);
+  gap: 10px;
+  list-style: none;
+  text-align: center;
+  width: 70vw;
+  justify-content: end;
+}
+
+.nav-bar {
+  z-index: 100;
+}

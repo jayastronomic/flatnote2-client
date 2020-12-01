@@ -1,5 +1,5 @@
-import "./styles/main.css";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import "./styles/tailwind.css";
 
 import React, { Component } from "react";
 import { connect } from "react-redux";
@@ -9,6 +9,8 @@ import { removeAuthUser } from "./actions/userActions";
 import { loggedIn } from "./actions/userActions";
 
 import Login from "./components/registrations/Login";
+import Nav from "./components/Nav";
+import Home from "./components/Home";
 
 const API = "http://localhost:3001/api/v1/logged_in";
 
@@ -40,13 +42,35 @@ class App extends Component {
   }
 
   render() {
+    console.log(this.props);
     return (
       <Router>
         <Switch>
           <Route
             exact
             path="/"
-            render={() => <Login handleLogin={this.handleLogin} />}
+            render={(props) => (
+              <Login {...props} handleLogin={this.handleLogin} />
+            )}
+          />
+          <Route
+            exact
+            path="/home"
+            render={() => (
+              <>
+                <Nav />
+                <Home />
+              </>
+            )}
+          />
+          <Route
+            eaxct
+            path="/new"
+            render={() => {
+              <>
+                <Nav />
+              </>;
+            }}
           />
         </Switch>
       </Router>
@@ -57,7 +81,7 @@ class App extends Component {
 const mapStateToProps = (state) => {
   return {
     authUser: state.authUser,
-    loggedIn: state.loggedIn,
+    loggedInStatus: state.loggedIn,
   };
 };
 

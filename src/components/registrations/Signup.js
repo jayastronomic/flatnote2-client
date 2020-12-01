@@ -10,8 +10,41 @@ export default class Signup extends Component {
       email: "",
       password: "",
       passwordConfirmation: "",
+      errors: "",
     };
   }
+
+  close = () => {
+    this.props.close();
+    this.setState({
+      username: "",
+      email: "",
+      password: "",
+      passwordConfirmation: "",
+      errors: "",
+    });
+  };
+
+  raiseErrors = () => {
+    return (
+      <ul className="space-y-2">
+        {this.state.errors.map((error, i) => {
+          return (
+            <li
+              className="text-xs text-red-600 px-2 border-gray-300 shadow "
+              key={i}
+            >
+              {error}
+            </li>
+          );
+        })}
+      </ul>
+    );
+  };
+
+  redirect = () => {
+    this.props.history.push("/home");
+  };
 
   handleChange = (e) => {
     this.setState({
@@ -42,10 +75,20 @@ export default class Signup extends Component {
 
     fetch(API, payload)
       .then((resp) => resp.json())
-      .then((obj) => console.log(obj.errors))
-      .catch((err) => console.log(err));
-
-    this.props.close();
+      .then((resObj) => {
+        if (resObj.status === "SUCCESS") {
+          this.props.handleLogin(resObj);
+          this.redirect();
+        } else {
+          this.setState({
+            username: "",
+            email: "",
+            password: "",
+            passwordConfirmation: "",
+            errors: resObj.errors,
+          });
+        }
+      });
   };
 
   render() {
@@ -56,10 +99,13 @@ export default class Signup extends Component {
       <div className="inset-0 bg-black bg-opacity-75 absolute flex justify-center items-center">
         <div className="bg-white w-1/2 rounded shadow">
           <div className="flex justify-center pt-4">
-            <p>Join Flatnote</p>
+            <p className="text-gray-500">Join Flatnote</p>
           </div>
           <div className="flex items-center justify-center pt-4 lg:text-5xl font-mono">
             <h1>Create Your Account</h1>
+          </div>
+          <div className="flex mt-10 ml-10">
+            {this.state.errors ? this.raiseErrors() : null}
           </div>
           <form onSubmit={this.handleSubmit}>
             <div className="flex flex-col p-10 space-y-4">
@@ -71,7 +117,7 @@ export default class Signup extends Component {
                   onChange={this.handleChange}
                   name="username"
                   value={this.state.username}
-                  className="bg-gray-200 rounded px-2"
+                  className="hover:bg-gray-300 bg-gray-200 rounded px-2"
                   id="username"
                 ></input>
               </div>
@@ -83,7 +129,7 @@ export default class Signup extends Component {
                   onChange={this.handleChange}
                   name="email"
                   value={this.state.email}
-                  className="bg-gray-200 rounded px-2"
+                  className="hover:bg-gray-300 bg-gray-200 rounded px-2"
                   id="email"
                 ></input>
               </div>
@@ -96,11 +142,11 @@ export default class Signup extends Component {
                   name="password"
                   value={this.state.password}
                   type="password"
-                  className="bg-gray-200 rounded px-2"
+                  className="hover:bg-gray-300 bg-gray-200 rounded px-2"
                   id="password"
                 ></input>
                 <p className="text-gray-600 text-xs">
-                  Make sure it's at least 4 characters. Max is 20.
+                  Make sure it's at least 4 characters.
                 </p>
               </div>
               <div className="flex flex-col">
@@ -115,7 +161,7 @@ export default class Signup extends Component {
                   name="passwordConfirmation"
                   value={this.state.passwordConfirmation}
                   type="password"
-                  className="bg-gray-200 rounded px-2"
+                  className="hover:bg-gray-300 bg-gray-200 rounded px-2"
                   id="passwordConfirmation"
                 ></input>
               </div>
@@ -123,14 +169,14 @@ export default class Signup extends Component {
                 <input
                   type="submit"
                   value="Create account"
-                  className="bg-blue-300 text-white hover:bg-blue-500 rounded-full"
+                  className="bg-blue-300 text-white hover:bg-blue-500 rounded-full focus:outline-none"
                 ></input>
               </div>
             </div>
           </form>
           <div className="flex flex-col justify-center text-lg">
             <button
-              onClick={this.props.close}
+              onClick={this.close}
               className="focus:outline-none text-gray-300 hover:bg-red-600 hover:text-white rounded-b text-xs p-2"
             >
               close
