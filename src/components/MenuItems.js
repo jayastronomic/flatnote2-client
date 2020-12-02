@@ -2,8 +2,8 @@ import React from "react";
 
 const MenuItems = [
   { name: "Home", url: "/home" },
-  { name: "Make Note", url: "/new" },
-  { name: "All Note", url: "#" },
+  { name: "New note", url: "/new" },
+  { name: "All notes", url: "/notes" },
 ];
 
 export default MenuItems;

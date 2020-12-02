@@ -42,7 +42,6 @@ class App extends Component {
   }
 
   render() {
-    console.log(this.props);
     return (
       <Router>
         <Switch>
@@ -56,9 +55,9 @@ class App extends Component {
           <Route
             exact
             path="/home"
-            render={() => (
+            render={(props) => (
               <>
-                <Nav />
+                <Nav {...props} handleLogout={this.handleLogout} />
                 <Home />
               </>
             )}

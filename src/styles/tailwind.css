@@ -14,14 +14,6 @@
   background-color: rgb(25, 114, 164);
 }
 
-.fa-bars {
-  color: rgb(25, 114, 164);
-}
-
-.menu-icon {
-  display: none;
-}
-
 .nav-menu {
   display: grid;
   grid-template-columns: repeat(5, auto);
@@ -34,4 +26,8 @@
 
 .nav-bar {
   z-index: 100;
+}
+
+.DM {
+  font-family: "DM Serif Display", serif;
 }
